@@ -37,7 +37,7 @@ function orderInfo() {
 
 function processOrder() {
     var query ="SELECT id, stock_quantity FROM products ?,";
-    connection.query(query, [order.productID, order.units], function(err,res) {
+    connection.query(query, {id: order.productID, stock_quantity: order.units}, function(err,res) {
         if (err) throw err;
         if (order.productID === res.id &&  order.units > res.stock_quantity) {
             console.log("Sorry! There aren't enough units in stock to process your order. Please try again.")

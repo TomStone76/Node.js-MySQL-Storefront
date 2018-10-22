@@ -11,21 +11,23 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
+    console.log("\nconnected as id " + connection.threadId + "\n");
     read();
 });
 
 function read() {
-    console.log("Displaying all products...\n");
+    console.log("Welcome to Bamazon! We currently offer the following products:\n");
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
-        console.log(res);
+        for (var i = 0; i < res.length; i++) {
+            console.log(res[i].product_name + " (Product ID: " + res[i].id + ")");
+            console.log("Price: $" + res[i].price + "\n");
+        }
         orderInfo();
     });
 }
 
 function orderInfo() {
-
     inquirer.prompt([{
             name: "productID",
             type: "input",
@@ -53,6 +55,7 @@ function orderInfo() {
                 if (stockQuantity >= requestedAmount) {
                     console.log("Your order was processed successfully.")
                     console.log("The total cost of your order is $" + totalCost + ".")
+                    //UPDATE here
                 } else if (stockQuantity < requestedAmount) {
                     console.log("Sorry, but there aren't enough units in stock to fulfill your order.");
                     console.log("Please order less units or a different item.");

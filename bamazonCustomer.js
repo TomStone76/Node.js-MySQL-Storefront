@@ -50,11 +50,12 @@ function orderInfo() {
                 stockQuantity = res[i].stock_quantity;
                 itemPrice = res[i].price;
                 totalCost = res[i].price * requestedAmount;
-                console.log(stockQuantity);
-                console.log(itemPrice);
                 if (stockQuantity >= requestedAmount) {
                     console.log("Your order was processed successfully.")
                     console.log("The total cost of your order is $" + totalCost + ".")
+                } else if (stockQuantity < requestedAmount) {
+                    console.log("Sorry, but there aren't enough units in stock to fulfill your order.");
+                    console.log("Please order less units or a different item.");
                 }
             }
         });

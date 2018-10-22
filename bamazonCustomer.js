@@ -12,6 +12,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
+    read();
 });
 
 function read() {
@@ -20,10 +21,10 @@ function read() {
     if (err) throw err;
     console.log(res);
     connection.end();
+    orderInfo();
     });
 }
 
-read();
 
 
 // var orderIdNumber;
@@ -48,8 +49,6 @@ function orderInfo() {
     });
 
 }
-
-orderInfo();
 // function processOrder() {
 //     var query ="SELECT id, stock_quantity FROM products ?,";
 //     connection.query(query, {id: order.productID, stock_quantity: order.units}, function(err,res) {

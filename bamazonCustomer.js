@@ -38,14 +38,21 @@ function orderInfo() {
             message: "How many units of the product do you want to buy?"
         }
     ]).then(function (order) {
-        var requestedAmount;
+        var stockQuantity;
+        var requestedAmount = order.units;
         var query = "SELECT stock_quantity FROM products WHERE ?";
         connection.query(query, {id: order.productID}, function(err, res) {
             if (err) throw err;
             for (var i = 0; i < res.length; i++) {
-                requestedAmount = res[i].stock_quantity;
-                console.log(requestedAmount);
+                stockQuantity = res[i].stock_quantity;
+               console.log(stockQuantity);
+               if (stockQuantity >= requestedAmount) {
+                console.log("Your order was processed successfully.")
+                console.log("The total cost of your order is ")
+            }
+            
             }
         });
+
    });
 }

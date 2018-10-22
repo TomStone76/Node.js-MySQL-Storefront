@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
     database: "bamazon"
 });
 
-connection.connect(function(err) {
+connection.connect(function (err) {
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
     read();
@@ -17,17 +17,16 @@ connection.connect(function(err) {
 
 function read() {
     console.log("Displaying all products...\n");
-    connection.query("SELECT * FROM products", function(err, res) {
-    if (err) throw err;
-    console.log(res);
-    orderInfo();
+    connection.query("SELECT * FROM products", function (err, res) {
+        if (err) throw err;
+        console.log(res);
+        orderInfo();
     });
 }
 
 function orderInfo() {
-    
-    inquirer.prompt([
-        {
+
+    inquirer.prompt([{
             name: "productID",
             type: "input",
             message: "What is the ID of the product you want to buy?"
@@ -40,19 +39,24 @@ function orderInfo() {
     ]).then(function (order) {
         var stockQuantity;
         var requestedAmount = order.units;
-        var query = "SELECT stock_quantity FROM products WHERE ?";
-        connection.query(query, {id: order.productID}, function(err, res) {
+        var itemPrice;
+        var totalCost;
+        var query = "SELECT stock_quantity, price FROM products WHERE ?";
+        connection.query(query, {
+            id: order.productID
+        }, function (err, res) {
             if (err) throw err;
             for (var i = 0; i < res.length; i++) {
                 stockQuantity = res[i].stock_quantity;
-               console.log(stockQuantity);
-               if (stockQuantity >= requestedAmount) {
-                console.log("Your order was processed successfully.")
-                console.log("The total cost of your order is ")
-            }
-            
+                itemPrice = res[i].price;
+                totalCost = res[i].price * requestedAmount;
+                console.log(stockQuantity);
+                console.log(itemPrice);
+                if (stockQuantity >= requestedAmount) {
+                    console.log("Your order was processed successfully.")
+                    console.log("The total cost of your order is $" + totalCost + ".")
+                }
             }
         });
-
-   });
+    });
 }

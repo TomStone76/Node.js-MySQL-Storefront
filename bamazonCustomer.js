@@ -43,6 +43,7 @@ function orderInfo() {
         var requestedAmount = order.units;
         var itemPrice;
         var totalCost;
+        var newStock;
         var query = "SELECT stock_quantity, price FROM products WHERE ?";
         connection.query(query, {
             id: order.productID
@@ -53,9 +54,17 @@ function orderInfo() {
                 itemPrice = res[i].price;
                 totalCost = res[i].price * requestedAmount;
                 if (stockQuantity >= requestedAmount) {
-                    console.log("Your order was processed successfully.")
-                    console.log("The total cost of your order is $" + totalCost + ".")
-                    //UPDATE here
+                    console.log("Your order was processed successfully.");
+                    console.log("The total cost of your order is $" + totalCost + ".");
+                    "UPDATE products SET ? WHERE ?",
+                    [
+                        {
+                            stock_quantity: stockQuantity - requestedAmount
+                        },
+                        {
+                            id: order.productID
+                        }
+                    ]
                 } else if (stockQuantity < requestedAmount) {
                     console.log("Sorry, but there aren't enough units in stock to fulfill your order.");
                     console.log("Please order less units or a different item.");

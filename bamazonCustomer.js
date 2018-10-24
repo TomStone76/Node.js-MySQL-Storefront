@@ -39,33 +39,17 @@ function orderInfo() {
             message: "How many units of the product do you want to buy?"
         }
     ]).then(function (order) {
-        var stockQuantity;
-        var requestedAmount = order.units;
-        var itemPrice;
-        var totalCost;
-        var newStock;
-        var query = "SELECT stock_quantity, price FROM products WHERE ?";
-        connection.query(query, {
-            id: order.productID
-        }, function (err, res) {
+        connection.query("SELECT stock_quantity, price FROM products WHERE id = ?", [order.productID],
+         function (err, res) {
             if (err) throw err;
             for (var i = 0; i < res.length; i++) {
-                stockQuantity = res[i].stock_quantity;
-                itemPrice = res[i].price;
-                totalCost = res[i].price * requestedAmount;
-                if (stockQuantity >= requestedAmount) {
+                var totalCost = res[i].price * order.units;
+                var newStock = res[i].stock_quantity - order.units;
+                if (res[i].stock_quantity >= order.units) {
                     console.log("Your order was processed successfully.");
                     console.log("The total cost of your order is $" + totalCost + ".");
-                    "UPDATE products SET ? WHERE ?",
-                    [
-                        {
-                            stock_quantity: stockQuantity - requestedAmount
-                        },
-                        {
-                            id: order.productID
-                        }
-                    ]
-                } else if (stockQuantity < requestedAmount) {
+                    connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [newStock, order.productID]);
+                } else if (res[i].stock_quantity < order.units) {
                     console.log("Sorry, but there aren't enough units in stock to fulfill your order.");
                     console.log("Please order less units or a different item.");
                 }

@@ -49,11 +49,27 @@ function orderInfo() {
                     console.log("Your order was processed successfully.");
                     console.log("The total cost of your order is $" + totalCost + ".");
                     connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [newStock, order.productID]);
+                    restartHandler();
                 } else if (res[i].stock_quantity < order.units) {
                     console.log("Sorry, but there aren't enough units in stock to fulfill your order.");
                     console.log("Please order less units or a different item.");
+                    restartHandler();
                 }
             }
         });
+    });
+}
+
+function restartHandler() {
+    inquirer.prompt([{
+        name: "restart",
+        type: "confirm",
+        message: "Would you like to continue shopping?"
+    }, ]).then(function ask(shoppingPrompt) {
+        if (shoppingPrompt.restart) {
+            orderInfo();
+        } else {
+            process.exit();
+        }
     });
 }

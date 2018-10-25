@@ -1,0 +1,26 @@
+{
+  "name": "node.js-mysql-storefront",
+  "version": "1.0.0",
+  "description": "storefront app",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomStone76/Node.js-MySQL-Storefront.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Tom Stone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomStone76/Node.js-MySQL-Storefront/issues"
+  },
+  "homepage": "https://github.com/TomStone76/Node.js-MySQL-Storefront#readme",
+  "dependencies": {
+    "inquirer": "^6.2.0",
+    "mysql": "^2.16.0"
+  }
+}

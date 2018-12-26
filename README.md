@@ -10,6 +10,6 @@ To use the app, please follow these steps:
 4. Open bamazonCustomer.js. On lines 6 through 8, enter your MySQL port, username, and password. Save the file. Make sure your MySQL connection is active.
 5. Using the command line, navigate to the Node.js-MySQL-Storefront directory. Then, type the following command: node bamazonCustomer.js
 
-Technologies used: JavaScript, Node.js, Inquirer NPM package, SQL, MySQL
+Technologies used: JavaScript, Node.js, Inquirer NPM package, SQL and MySQL
 
 ![Screenshot](bamazon_images/bamazon1.png)

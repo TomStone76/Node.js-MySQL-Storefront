@@ -8,7 +8,8 @@ To use the app, please follow these steps:
 2. Download this repository by entering this command in the command line: git clone https://github.com/TomStone76/Node.js-MySQL-Storefront.git
 3. Download and install MySQL if you do not already have it: https://www.mysql.com/
 4. Open bamazonCustomer.js. On lines 6 through 8, enter your MySQL port, username, and password. Save the file. Make sure your MySQL connection is active.
-5. Using the command line, navigate to the Node.js-MySQL-Storefront directory. Then, type the following command: node bamazonCustomer.js
+5. In MySQL, create the "bamazon" database by pasting lines 1 through 14 of the SQL code from storefrontSchema.sql. Populate the database by pasting lines 16 through 44 of the same code.
+6. Using the command line, navigate to the Node.js-MySQL-Storefront directory. Then, type the following command: node bamazonCustomer.js
 
 Technologies used: JavaScript, Node.js, Inquirer NPM package, SQL and MySQL
 

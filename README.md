@@ -14,3 +14,5 @@ To use the app, please follow these steps:
 Technologies used: JavaScript, Node.js, Inquirer NPM package, SQL and MySQL
 
 ![Screenshot](bamazon_images/bamazon1.png)
+
+© 2018 Thomas Joseph Stone
